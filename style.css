@@ -458,4 +458,10 @@ footer {
   .footer-content {
     flex-direction: column;
   }
+
+.logo {
+  height: 60px;
+  width: auto;
+  display: block;
 }
+  }
