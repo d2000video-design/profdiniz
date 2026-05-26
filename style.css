@@ -442,8 +442,16 @@ footer {
   }
 
   .photo-placeholder {
-    min-height: 380px;
-  }
+  min-height: 640px;
+  border-radius: 32px;
+
+  background-image: url("./assets/professor.png");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+
+  box-shadow: 0 30px 70px rgba(15,39,71,0.22);
+}
 
   .signature-card {
     position: static;
