@@ -84,7 +84,7 @@ nav a:hover{
 
 .hero-grid{
   display:grid;
-  grid-template-columns:1.1fr .9fr;
+  grid-template-columns:1.25fr .75fr;
   gap:60px;
   align-items:center;
 }
@@ -98,14 +98,15 @@ nav a:hover{
   letter-spacing:.15em;
 }
 
+
 .hero h1{
-  font-size:clamp(52px,5vw,78px);
-  line-height:1.05;
+  font-size:clamp(46px,4.7vw,76px);
+  line-height:1;
   margin:16px 0;
   color:#111;
   letter-spacing:-0.06em;
+  white-space:nowrap;
 }
-
 .hero h2{
   font-size:clamp(24px,3vw,38px);
   line-height:1.15;
