@@ -354,6 +354,11 @@ footer{
 
 @media(max-width:900px){
 
+  .hero h1{
+  white-space:normal;
+  font-size:clamp(44px,12vw,64px);
+}
+
   .menu-btn{
     display:block;
     border:0;
