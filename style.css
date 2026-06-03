@@ -99,10 +99,11 @@ nav a:hover{
 }
 
 .hero h1{
-  font-size:clamp(52px,7vw,92px);
-  line-height:.95;
+  font-size:clamp(52px,5vw,78px);
+  line-height:1.05;
   margin:16px 0;
   color:#111;
+  letter-spacing:-0.06em;
 }
 
 .hero h2{
