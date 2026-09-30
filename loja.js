@@ -507,17 +507,20 @@ function criarCardProduto(produto) {
 
 function renderizarProdutos(lista = produtos) {
 
-  const container = document.getElementById("products-grid");
+  const container =
+    document.getElementById("products-grid");
 
-  const contador = document.getElementById("product-count");
+  const contador =
+    document.getElementById("product-count");
 
-  const semResultados = document.getElementById("no-results");
+  const semResultados =
+    document.getElementById("no-results");
 
 
   if (!container) {
 
     console.error(
-      'Professor Diniz: elemento #products-grid não encontrado.'
+      "Professor Diniz: elemento #products-grid não encontrado."
     );
 
     return;
@@ -551,9 +554,10 @@ function renderizarProdutos(lista = produtos) {
   }
 
 
-  container.innerHTML = lista
-    .map(criarCardProduto)
-    .join("");
+  container.innerHTML =
+    lista
+      .map(criarCardProduto)
+      .join("");
 
 }
 
@@ -564,31 +568,35 @@ function renderizarProdutos(lista = produtos) {
 
 function criarCardCombo(combo) {
 
-  const nomesModelos = combo.modelos
-    .map(numero => {
+  const nomesModelos =
+    combo.modelos
+      .map(numero => {
 
-      const produto =
-        produtos.find(item => item.numero === numero);
+        const produto =
+          produtos.find(
+            item => item.numero === numero
+          );
 
-      if (!produto) {
-        return "";
-      }
 
-      return `
-        <li>
-          <strong>${numero}</strong>
-          — ${produto.nome}
-        </li>
-      `;
+        if (!produto) {
+          return "";
+        }
 
-    })
-    .join("");
+
+        return `
+          <li>
+            <strong>${numero}</strong>
+            — ${produto.nome}
+          </li>
+        `;
+
+      })
+      .join("");
 
 
   return `
     <article
-      class="combo-card
-      ${combo.destaque ? "combo-destaque" : ""}"
+      class="combo-card ${combo.destaque ? "combo-destaque" : ""}"
     >
 
       ${
@@ -654,7 +662,7 @@ function renderizarCombos() {
   if (!container) {
 
     console.error(
-      'Professor Diniz: elemento #combos-grid não encontrado.'
+      "Professor Diniz: elemento #combos-grid não encontrado."
     );
 
     return;
@@ -662,9 +670,10 @@ function renderizarCombos() {
   }
 
 
-  container.innerHTML = combos
-    .map(criarCardCombo)
-    .join("");
+  container.innerHTML =
+    combos
+      .map(criarCardCombo)
+      .join("");
 
 }
 
@@ -682,7 +691,7 @@ function configurarBusca() {
   if (!campo) {
 
     console.warn(
-      'Professor Diniz: campo #product-search não encontrado.'
+      "Professor Diniz: campo #product-search não encontrado."
     );
 
     return;
@@ -690,11 +699,10 @@ function configurarBusca() {
   }
 
 
-  campo.addEventListener("input", function () {
-
-    aplicarFiltros();
-
-  });
+  campo.addEventListener(
+    "input",
+    aplicarFiltros
+  );
 
 }
 
@@ -709,28 +717,33 @@ let categoriaAtual = "todos";
 function configurarFiltros() {
 
   const botoes =
-    document.querySelectorAll(".filter-button[data-filter]");
+    document.querySelectorAll(
+      ".filter-button[data-filter]"
+    );
 
 
   botoes.forEach(botao => {
 
-    botao.addEventListener("click", function () {
+    botao.addEventListener(
+      "click",
+      function () {
 
-      botoes.forEach(item => {
-        item.classList.remove("active");
-      });
-
-
-      this.classList.add("active");
-
-
-      categoriaAtual =
-        this.dataset.filter || "todos";
+        botoes.forEach(item => {
+          item.classList.remove("active");
+        });
 
 
-      aplicarFiltros();
+        this.classList.add("active");
 
-    });
+
+        categoriaAtual =
+          this.dataset.filter || "todos";
+
+
+        aplicarFiltros();
+
+      }
+    );
 
   });
 
@@ -738,7 +751,7 @@ function configurarFiltros() {
 
 
 // ============================================================
-// APLICA BUSCA + CATEGORIA
+// BUSCA + CATEGORIA
 // ============================================================
 
 function aplicarFiltros() {
@@ -757,77 +770,73 @@ function aplicarFiltros() {
     normalizarTexto(categoriaAtual);
 
 
-  const resultado = produtos.filter(produto => {
+  const resultado =
+    produtos.filter(produto => {
 
-    const textoProduto = normalizarTexto(`
-      ${produto.numero}
-      ${produto.nome}
-      ${produto.subtitulo}
-      ${produto.categoria}
-    `);
-
-
-    const correspondeBusca =
-      termo === "" ||
-      textoProduto.includes(termo);
+      const textoProduto =
+        normalizarTexto(`
+          ${produto.numero}
+          ${produto.nome}
+          ${produto.subtitulo}
+          ${produto.categoria}
+        `);
 
 
-    let correspondeCategoria = false;
+      const correspondeBusca =
+        termo === "" ||
+        textoProduto.includes(termo);
 
 
-    if (
-      categoria === "todos" ||
-      categoria === "all"
-    ) {
+      let correspondeCategoria = false;
 
-      correspondeCategoria = true;
-
-    } else {
-
-      const categoriaProduto =
-        normalizarTexto(produto.categoria);
-
-
-      // Compatibilidade entre os nomes
-      // exibidos no HTML e as categorias
-      // cadastradas no catálogo.
 
       if (
-        categoria === "terreno" &&
-        categoriaProduto === "terrenos"
-      ) {
-
-        correspondeCategoria = true;
-
-      } else if (
-        categoria === "servidao" &&
-        categoriaProduto === "servidao"
-      ) {
-
-        correspondeCategoria = true;
-
-      } else if (
-        categoria === "locacao" &&
-        categoriaProduto === "locacao"
+        categoria === "todos" ||
+        categoria === "all"
       ) {
 
         correspondeCategoria = true;
 
       } else {
 
-        correspondeCategoria =
-          categoriaProduto === categoria;
+        const categoriaProduto =
+          normalizarTexto(produto.categoria);
+
+
+        if (
+          categoria === "terreno" &&
+          categoriaProduto === "terrenos"
+        ) {
+
+          correspondeCategoria = true;
+
+        } else if (
+          categoria === "servidao" &&
+          categoriaProduto === "servidao"
+        ) {
+
+          correspondeCategoria = true;
+
+        } else if (
+          categoria === "locacao" &&
+          categoriaProduto === "locacao"
+        ) {
+
+          correspondeCategoria = true;
+
+        } else {
+
+          correspondeCategoria =
+            categoriaProduto === categoria;
+
+        }
 
       }
 
-    }
 
+      return correspondeBusca && correspondeCategoria;
 
-    return
-      correspondeBusca &&
-      correspondeCategoria;
-
-  });
+    });
 
 
   renderizarProdutos(resultado);
@@ -839,8 +848,8 @@ function aplicarFiltros() {
 // CHECKOUT
 // ============================================================
 
-// Amanhã entra aqui a integração da InfinitePay.
-// Por enquanto nenhum pagamento real é iniciado.
+// A integração da InfinitePay será adicionada aqui.
+// Até lá, os botões não iniciam pagamento real.
 
 const checkoutLinks = {
 
@@ -911,31 +920,34 @@ document
   .querySelectorAll(".main-nav a")
   .forEach(link => {
 
-    link.addEventListener("click", () => {
+    link.addEventListener(
+      "click",
+      () => {
 
-      const menu =
-        document.getElementById("menu");
-
-
-      const botao =
-        document.querySelector(".menu-toggle");
+        const menu =
+          document.getElementById("menu");
 
 
-      if (menu) {
-        menu.classList.remove("open");
+        const botao =
+          document.querySelector(".menu-toggle");
+
+
+        if (menu) {
+          menu.classList.remove("open");
+        }
+
+
+        if (botao) {
+
+          botao.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+
+        }
+
       }
-
-
-      if (botao) {
-
-        botao.setAttribute(
-          "aria-expanded",
-          "false"
-        );
-
-      }
-
-    });
+    );
 
   });
 
