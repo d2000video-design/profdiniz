@@ -113,17 +113,39 @@ button {
   gap: 40px;
 }
 
-.brand {
-  display: flex;
+
+/* =========================================================
+   LOGO COM BASE CLARA
+========================================================= */
+
+.site-header .brand {
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+
+  padding: 9px 14px;
+
+  background: var(--cream);
+
+  border-radius: 4px;
 }
 
-.brand img {
+.site-header .brand img {
+  display: block;
+
   width: 175px;
-  max-height: 58px;
+  height: auto;
+
+  max-height: 50px;
+
   object-fit: contain;
 }
+
+
+/* =========================================================
+   NAVEGAÇÃO
+========================================================= */
 
 .main-nav {
   display: flex;
@@ -425,8 +447,7 @@ button {
 
 
 /* =========================================================
-   CARD DO PRODUTO
-   Criado posteriormente pelo loja.js
+   CARDS DE PRODUTOS
 ========================================================= */
 
 .product-card {
@@ -549,10 +570,113 @@ button {
 
 
 /* =========================================================
+   COMPATIBILIDADE COM OS CARDS GERADOS PELO loja.js
+========================================================= */
+
+.produto-card {
+  min-width: 0;
+}
+
+.produto-imagem {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--green-dark);
+  box-shadow: var(--shadow);
+}
+
+.produto-imagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.produto-card:hover .produto-imagem img {
+  transform: scale(1.025);
+}
+
+.produto-conteudo {
+  padding: 20px 2px 0;
+}
+
+.produto-numero {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.produto-conteudo h3 {
+  color: var(--text);
+  font-size: 18px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.produto-subtitulo {
+  margin-top: 6px;
+  color: var(--text-soft);
+  font-size: 13px;
+}
+
+.produto-formato {
+  margin-top: 8px;
+  color: #8a8c84;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.produto-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 20px;
+  padding-top: 17px;
+  border-top: 1px solid var(--line);
+}
+
+.produto-preco {
+  color: var(--green-dark);
+  font-size: 23px;
+  line-height: 1;
+}
+
+.btn-comprar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid var(--green-dark);
+  background: var(--green-dark);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  transition: all 0.2s ease;
+}
+
+.btn-comprar:hover {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--green-dark);
+}
+
+
+/* =========================================================
    SEM RESULTADOS
 ========================================================= */
 
-.no-results {
+.no-results,
+.nenhum-resultado {
   padding: 70px 20px;
   text-align: center;
   border: 1px solid var(--line);
@@ -621,8 +745,7 @@ button {
 
 
 /* =========================================================
-   CARD DE COMBO
-   Criado posteriormente pelo loja.js
+   CARDS DOS COMBOS
 ========================================================= */
 
 .combo-card {
@@ -645,7 +768,8 @@ button {
   background: rgba(255, 255, 255, 0.055);
 }
 
-.combo-card.featured {
+.combo-card.featured,
+.combo-card.combo-destaque {
   border-color: var(--gold);
   background:
     linear-gradient(
@@ -655,7 +779,8 @@ button {
     );
 }
 
-.combo-tag {
+.combo-tag,
+.combo-numero {
   display: inline-block;
   align-self: flex-start;
   margin-bottom: 23px;
@@ -666,13 +791,27 @@ button {
   text-transform: uppercase;
 }
 
+.combo-badge {
+  display: inline-block;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  padding: 6px 9px;
+  background: var(--gold);
+  color: var(--green-dark);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .combo-card h3 {
   font-size: 24px;
   line-height: 1.12;
   letter-spacing: -0.03em;
 }
 
-.combo-description {
+.combo-description,
+.combo-quantidade {
   margin-top: 13px;
   color: rgba(255, 255, 255, 0.62);
   font-size: 13px;
@@ -683,6 +822,23 @@ button {
   margin-top: 18px;
   color: rgba(255, 255, 255, 0.72);
   font-size: 12px;
+}
+
+.combo-lista {
+  margin-top: 18px;
+  padding-left: 0;
+  list-style: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.combo-lista li + li {
+  margin-top: 3px;
+}
+
+.combo-lista strong {
+  color: var(--gold-light);
 }
 
 .combo-footer {
@@ -703,7 +859,8 @@ button {
   text-transform: uppercase;
 }
 
-.combo-price strong {
+.combo-price strong,
+.combo-preco {
   display: block;
   margin-top: 3px;
   color: var(--gold-light);
@@ -711,21 +868,13 @@ button {
   line-height: 1;
 }
 
-.combo-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 43px;
-  padding: 0 17px;
-  border: 1px solid var(--gold);
+.combo-card .btn-comprar {
+  border-color: var(--gold);
   background: transparent;
   color: var(--gold-light);
-  font-size: 11px;
-  font-weight: 800;
-  transition: all 0.2s ease;
 }
 
-.combo-button:hover {
+.combo-card .btn-comprar:hover {
   background: var(--gold);
   color: var(--green-dark);
 }
@@ -970,8 +1119,16 @@ button {
     min-height: 72px;
   }
 
-  .brand img {
-    width: 145px;
+  /* LOGO MOBILE */
+
+  .site-header .brand {
+    padding: 7px 11px;
+  }
+
+  .site-header .brand img {
+    width: 140px;
+    height: auto;
+    max-height: 44px;
   }
 
   .menu-toggle {
@@ -1145,6 +1302,7 @@ button {
     gap: 42px;
   }
 
+  .produto-conteudo h3,
   .product-content h3 {
     min-height: auto;
     font-size: 20px;
@@ -1154,11 +1312,13 @@ button {
     min-height: auto;
   }
 
+  .produto-footer,
   .product-footer {
     align-items: center;
   }
 
-  .product-button {
+  .product-button,
+  .btn-comprar {
     min-width: 115px;
   }
 
