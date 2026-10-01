@@ -1,1 +1,792 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Confirmação do Pedido | Professor Diniz
+  </title>
+
+  <meta
+    name="description"
+    content="Confirmação de pagamento da loja Professor Diniz."
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    :root {
+
+      --black: #111111;
+
+      --gold: #b89a5a;
+
+      --white: #ffffff;
+
+      --light: #f8f6f1;
+
+      --text: #222222;
+
+      --muted: #666666;
+
+      --border: #e7dfd1;
+
+      --green: #2f2f23;
+
+    }
+
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+
+    body {
+
+      margin: 0;
+
+      min-height: 100vh;
+
+      font-family: "Inter", sans-serif;
+
+      color: var(--text);
+
+      background: var(--light);
+
+    }
+
+
+    /* ========================================================
+       CABEÇALHO
+       ======================================================== */
+
+    .site-header {
+
+      background: rgba(255,255,255,.96);
+
+      border-bottom: 1px solid var(--border);
+
+    }
+
+
+    .header-container {
+
+      width: min(
+        1200px,
+        calc(100% - 40px)
+      );
+
+      height: 82px;
+
+      margin: auto;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+    }
+
+
+    .brand {
+
+      display: flex;
+
+      align-items: center;
+
+      text-decoration: none;
+
+    }
+
+
+    .brand img {
+
+      display: block;
+
+      height: 50px;
+
+      width: auto;
+
+    }
+
+
+    .voltar {
+
+      text-decoration: none;
+
+      color: var(--text);
+
+      font-size: 14px;
+
+      font-weight: 600;
+
+      transition: color .2s ease;
+
+    }
+
+
+    .voltar:hover {
+
+      color: var(--gold);
+
+    }
+
+
+    /* ========================================================
+       CONTEÚDO
+       ======================================================== */
+
+    main {
+
+      min-height: calc(100vh - 82px);
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding: 60px 20px;
+
+    }
+
+
+    .pedido-card {
+
+      width: min(
+        680px,
+        100%
+      );
+
+      background: var(--white);
+
+      border: 1px solid var(--border);
+
+      border-radius: 24px;
+
+      padding: 56px;
+
+      text-align: center;
+
+      box-shadow:
+        0 20px 60px
+        rgba(17,17,17,.08);
+
+    }
+
+
+    /* ========================================================
+       INDICADOR
+       ======================================================== */
+
+    .status-icon {
+
+      width: 74px;
+
+      height: 74px;
+
+      margin:
+        0 auto
+        28px;
+
+      border-radius: 50%;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      background: var(--green);
+
+    }
+
+
+    .spinner {
+
+      width: 30px;
+
+      height: 30px;
+
+      border-radius: 50%;
+
+      border:
+        3px solid
+        rgba(255,255,255,.25);
+
+      border-top-color:
+        var(--gold);
+
+      animation:
+        girar .8s
+        linear
+        infinite;
+
+    }
+
+
+    @keyframes girar {
+
+      to {
+        transform:
+          rotate(360deg);
+      }
+
+    }
+
+
+    /* ========================================================
+       TEXTOS
+       ======================================================== */
+
+    .eyebrow {
+
+      display: inline-block;
+
+      margin-bottom: 14px;
+
+      color: var(--gold);
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      letter-spacing: .14em;
+
+      text-transform: uppercase;
+
+    }
+
+
+    h1 {
+
+      margin:
+        0 0
+        18px;
+
+      color: var(--black);
+
+      font-size:
+        clamp(
+          30px,
+          5vw,
+          44px
+        );
+
+      line-height: 1.08;
+
+      letter-spacing: -.04em;
+
+    }
+
+
+    .descricao {
+
+      max-width: 520px;
+
+      margin:
+        0 auto
+        28px;
+
+      color: var(--muted);
+
+      font-size: 16px;
+
+      line-height: 1.7;
+
+    }
+
+
+    .aviso {
+
+      margin-top: 30px;
+
+      padding: 20px;
+
+      background: var(--light);
+
+      border-radius: 14px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+
+      line-height: 1.6;
+
+    }
+
+
+    /* ========================================================
+       PEDIDO
+       ======================================================== */
+
+    .pedido-info {
+
+      display: none;
+
+      margin-top: 28px;
+
+      padding-top: 24px;
+
+      border-top:
+        1px solid
+        var(--border);
+
+    }
+
+
+    .pedido-info.visivel {
+
+      display: block;
+
+    }
+
+
+    .pedido-label {
+
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+
+      font-weight: 600;
+
+      text-transform: uppercase;
+
+      letter-spacing: .08em;
+
+    }
+
+
+    .pedido-numero {
+
+      color: var(--black);
+
+      font-size: 14px;
+
+      font-weight: 700;
+
+      word-break: break-word;
+
+    }
+
+
+    /* ========================================================
+       BOTÕES
+       ======================================================== */
+
+    .acoes {
+
+      margin-top: 32px;
+
+      display: flex;
+
+      gap: 12px;
+
+      justify-content: center;
+
+      flex-wrap: wrap;
+
+    }
+
+
+    .btn {
+
+      display: inline-flex;
+
+      min-height: 48px;
+
+      padding: 0 22px;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-radius: 10px;
+
+      text-decoration: none;
+
+      font-size: 14px;
+
+      font-weight: 700;
+
+      transition:
+        transform .2s ease,
+        opacity .2s ease;
+
+    }
+
+
+    .btn:hover {
+
+      transform:
+        translateY(-1px);
+
+    }
+
+
+    .btn-primary {
+
+      background:
+        var(--black);
+
+      color:
+        var(--white);
+
+    }
+
+
+    .btn-secondary {
+
+      border:
+        1px solid
+        var(--border);
+
+      color:
+        var(--black);
+
+      background:
+        var(--white);
+
+    }
+
+
+    /* ========================================================
+       RESPONSIVO
+       ======================================================== */
+
+    @media (
+      max-width: 700px
+    ) {
+
+      .header-container {
+
+        height: 74px;
+
+      }
+
+
+      .brand img {
+
+        height: 42px;
+
+      }
+
+
+      main {
+
+        min-height:
+          calc(
+            100vh - 74px
+          );
+
+        padding:
+          30px 16px;
+
+      }
+
+
+      .pedido-card {
+
+        padding:
+          40px 24px;
+
+        border-radius:
+          20px;
+
+      }
+
+
+      .descricao {
+
+        font-size:
+          15px;
+
+      }
+
+
+      .acoes {
+
+        flex-direction:
+          column;
+
+      }
+
+
+      .btn {
+
+        width:
+          100%;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- ========================================================
+       CABEÇALHO
+       ======================================================== -->
+
+  <header class="site-header">
+
+    <div class="header-container">
+
+      <a
+        href="index.html"
+        class="brand"
+        aria-label="Professor Diniz"
+      >
+
+        <img
+          src="assets/logo-prof-diniz.png"
+          alt="Professor Diniz"
+        >
+
+      </a>
+
+
+      <a
+        href="loja.html"
+        class="voltar"
+      >
+        Voltar para a loja
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <!-- ========================================================
+       CONTEÚDO
+       ======================================================== -->
+
+  <main>
+
+    <section
+      class="pedido-card"
+      aria-live="polite"
+    >
+
+
+      <div
+        class="status-icon"
+        aria-hidden="true"
+      >
+
+        <div class="spinner"></div>
+
+      </div>
+
+
+      <span class="eyebrow">
+        Pedido recebido
+      </span>
+
+
+      <h1>
+        Estamos confirmando seu pagamento
+      </h1>
+
+
+      <p class="descricao">
+
+        Seu pedido retornou da InfinitePay e está
+        sendo validado com segurança.
+
+        Assim que a confirmação do pagamento for
+        identificada, o acesso ao material adquirido
+        será liberado.
+
+      </p>
+
+
+      <div
+        id="pedido-info"
+        class="pedido-info"
+      >
+
+        <span class="pedido-label">
+          Identificação do pedido
+        </span>
+
+        <span
+          id="pedido-numero"
+          class="pedido-numero"
+        ></span>
+
+      </div>
+
+
+      <div class="aviso">
+
+        <strong>
+          Importante:
+        </strong>
+
+        esta página não considera o pagamento
+        aprovado apenas pelo retorno do checkout.
+
+        A confirmação será realizada pelo sistema
+        diretamente com a plataforma de pagamento.
+
+      </div>
+
+
+      <div class="acoes">
+
+        <a
+          href="loja.html"
+          class="btn btn-primary"
+        >
+          Voltar para a loja
+        </a>
+
+
+        <a
+          href="index.html"
+          class="btn btn-secondary"
+        >
+          Página inicial
+        </a>
+
+      </div>
+
+
+    </section>
+
+  </main>
+
+
+  <!-- ========================================================
+       SCRIPT
+       ======================================================== -->
+
+  <script>
+
+    // ========================================================
+    // RECUPERA O ÚLTIMO PEDIDO INICIADO NESTE NAVEGADOR
+    //
+    // IMPORTANTE:
+    // Isto serve somente para exibição e experiência do usuário.
+    // NÃO representa confirmação de pagamento.
+    // ========================================================
+
+    function carregarPedidoLocal() {
+
+      try {
+
+        const pedidoSalvo =
+          localStorage.getItem(
+            "profDinizUltimoPedido"
+          );
+
+
+        if (!pedidoSalvo) {
+          return;
+        }
+
+
+        const pedido =
+          JSON.parse(
+            pedidoSalvo
+          );
+
+
+        if (
+          !pedido ||
+          !pedido.order_nsu
+        ) {
+          return;
+        }
+
+
+        const info =
+          document.getElementById(
+            "pedido-info"
+          );
+
+
+        const numero =
+          document.getElementById(
+            "pedido-numero"
+          );
+
+
+        if (
+          info &&
+          numero
+        ) {
+
+          numero.textContent =
+            pedido.order_nsu;
+
+
+          info.classList.add(
+            "visivel"
+          );
+
+        }
+
+
+      } catch (erro) {
+
+        console.warn(
+          "Não foi possível recuperar o pedido local:",
+          erro
+        );
+
+      }
+
+    }
+
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      carregarPedidoLocal
+    );
+
+  </script>
+
+
+</body>
+
+</html>
