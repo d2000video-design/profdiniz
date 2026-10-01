@@ -428,7 +428,7 @@ function moeda(valor) {
 
 
 // ============================================================
-// NORMALIZAÇÃO DE TEXTO
+// NORMALIZAÇÃO
 // ============================================================
 
 function normalizarTexto(texto) {
@@ -442,7 +442,7 @@ function normalizarTexto(texto) {
 
 
 // ============================================================
-// RENDERIZAÇÃO DOS PRODUTOS
+// CARD DE PRODUTO
 // ============================================================
 
 function criarCardProduto(produto) {
@@ -505,6 +505,10 @@ function criarCardProduto(produto) {
 }
 
 
+// ============================================================
+// RENDERIZA PRODUTOS
+// ============================================================
+
 function renderizarProdutos(lista = produtos) {
 
   const container =
@@ -563,7 +567,7 @@ function renderizarProdutos(lista = produtos) {
 
 
 // ============================================================
-// RENDERIZAÇÃO DOS COMBOS
+// CARD DE COMBO
 // ============================================================
 
 function criarCardCombo(combo) {
@@ -652,6 +656,10 @@ function criarCardCombo(combo) {
 
 }
 
+
+// ============================================================
+// RENDERIZA COMBOS
+// ============================================================
 
 function renderizarCombos() {
 
@@ -846,27 +854,18 @@ function aplicarFiltros() {
 
 // ============================================================
 // CHECKOUT INFINITEPAY
+//
+// Todos os 24 modelos e 14 combos utilizam o mesmo endpoint.
+// O navegador envia SOMENTE o SKU.
+// O preço verdadeiro é definido pelo servidor.
 // ============================================================
 
 async function comprarProduto(sku, botao) {
 
-  // ----------------------------------------------------------
-  // Neste primeiro teste, somente o Modelo 01 está liberado.
-  // ----------------------------------------------------------
-
-  if (sku !== "LAUDO-01") {
-
-    alert(
-      "O checkout deste produto está sendo configurado. Neste momento estamos testando a integração com o Modelo 01."
-    );
-
-    return;
-
-  }
-
-
   const textoOriginal =
-    botao ? botao.textContent : "Comprar";
+    botao
+      ? botao.textContent
+      : "Comprar";
 
 
   try {
@@ -875,32 +874,50 @@ async function comprarProduto(sku, botao) {
 
       botao.disabled = true;
 
-      botao.textContent = "Aguarde...";
+      botao.textContent =
+        "Aguarde...";
 
     }
 
 
-    // --------------------------------------------------------
-    // Solicita ao servidor a criação do checkout
-    // --------------------------------------------------------
+    const resposta =
+      await fetch(
+        "/api/checkout",
+        {
 
-    const resposta = await fetch(
-      "/api/checkout",
-      {
-        method: "POST",
+          method: "POST",
 
-        headers: {
-          "Content-Type": "application/json"
-        },
+          headers: {
+            "Content-Type": "application/json"
+          },
 
-        body: JSON.stringify({
-          sku: sku
-        })
-      }
-    );
+          body: JSON.stringify({
+            sku: sku
+          })
+
+        }
+      );
 
 
-    const dados = await resposta.json();
+    const textoResposta =
+      await resposta.text();
+
+
+    let dados;
+
+
+    try {
+
+      dados =
+        textoResposta
+          ? JSON.parse(textoResposta)
+          : {};
+
+    } catch {
+
+      dados = {};
+
+    }
 
 
     if (!resposta.ok) {
@@ -909,6 +926,7 @@ async function comprarProduto(sku, botao) {
         "Erro ao criar checkout:",
         dados
       );
+
 
       throw new Error(
         dados.erro ||
@@ -925,6 +943,7 @@ async function comprarProduto(sku, botao) {
         dados
       );
 
+
       throw new Error(
         "A InfinitePay não retornou o endereço do pagamento."
       );
@@ -933,7 +952,37 @@ async function comprarProduto(sku, botao) {
 
 
     // --------------------------------------------------------
-    // Redireciona para o checkout real da InfinitePay
+    // Guarda localmente o pedido que acabou de ser iniciado.
+    // Isso será útil na próxima etapa, na página pedido.html.
+    // --------------------------------------------------------
+
+    if (dados.order_nsu) {
+
+      try {
+
+        localStorage.setItem(
+          "profDinizUltimoPedido",
+          JSON.stringify({
+            order_nsu: dados.order_nsu,
+            sku: sku,
+            criado_em: new Date().toISOString()
+          })
+        );
+
+      } catch (erroStorage) {
+
+        console.warn(
+          "Não foi possível salvar o pedido localmente:",
+          erroStorage
+        );
+
+      }
+
+    }
+
+
+    // --------------------------------------------------------
+    // ABRE CHECKOUT INFINITEPAY
     // --------------------------------------------------------
 
     window.location.href =
