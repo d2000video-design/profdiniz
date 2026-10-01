@@ -490,7 +490,7 @@ function criarCardProduto(produto) {
           <button
             class="btn-comprar"
             type="button"
-            onclick="comprarProduto('${produto.sku}')"
+            onclick="comprarProduto('${produto.sku}', this)"
           >
             Comprar
           </button>
@@ -640,7 +640,7 @@ function criarCardCombo(combo) {
         <button
           class="btn-comprar"
           type="button"
-          onclick="comprarProduto('${combo.sku}')"
+          onclick="comprarProduto('${combo.sku}', this)"
         >
           Comprar combo
         </button>
@@ -845,35 +845,124 @@ function aplicarFiltros() {
 
 
 // ============================================================
-// CHECKOUT
+// CHECKOUT INFINITEPAY
 // ============================================================
 
-// A integração da InfinitePay será adicionada aqui.
-// Até lá, os botões não iniciam pagamento real.
+async function comprarProduto(sku, botao) {
 
-const checkoutLinks = {
+  // ----------------------------------------------------------
+  // Neste primeiro teste, somente o Modelo 01 está liberado.
+  // ----------------------------------------------------------
 
-};
+  if (sku !== "LAUDO-01") {
 
-
-function comprarProduto(sku) {
-
-  const link =
-    checkoutLinks[sku];
-
-
-  if (link) {
-
-    window.location.href = link;
+    alert(
+      "O checkout deste produto está sendo configurado. Neste momento estamos testando a integração com o Modelo 01."
+    );
 
     return;
 
   }
 
 
-  alert(
-    "O checkout deste produto está sendo configurado. Em breve a compra estará disponível diretamente pelo site."
-  );
+  const textoOriginal =
+    botao ? botao.textContent : "Comprar";
+
+
+  try {
+
+    if (botao) {
+
+      botao.disabled = true;
+
+      botao.textContent = "Aguarde...";
+
+    }
+
+
+    // --------------------------------------------------------
+    // Solicita ao servidor a criação do checkout
+    // --------------------------------------------------------
+
+    const resposta = await fetch(
+      "/api/checkout",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+          sku: sku
+        })
+      }
+    );
+
+
+    const dados = await resposta.json();
+
+
+    if (!resposta.ok) {
+
+      console.error(
+        "Erro ao criar checkout:",
+        dados
+      );
+
+      throw new Error(
+        dados.erro ||
+        "Não foi possível iniciar o pagamento."
+      );
+
+    }
+
+
+    if (!dados.checkout_url) {
+
+      console.error(
+        "Checkout sem URL:",
+        dados
+      );
+
+      throw new Error(
+        "A InfinitePay não retornou o endereço do pagamento."
+      );
+
+    }
+
+
+    // --------------------------------------------------------
+    // Redireciona para o checkout real da InfinitePay
+    // --------------------------------------------------------
+
+    window.location.href =
+      dados.checkout_url;
+
+
+  } catch (erro) {
+
+    console.error(
+      "Erro no checkout:",
+      erro
+    );
+
+
+    alert(
+      "Não foi possível abrir o pagamento agora. Por favor, tente novamente."
+    );
+
+
+    if (botao) {
+
+      botao.disabled = false;
+
+      botao.textContent =
+        textoOriginal;
+
+    }
+
+  }
 
 }
 
