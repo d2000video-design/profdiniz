@@ -41,45 +41,30 @@
       box-sizing: border-box;
     }
 
-
     :root {
-
       --black: #111111;
-
       --gold: #b89a5a;
-
       --white: #ffffff;
-
       --light: #f8f6f1;
-
       --text: #222222;
-
       --muted: #666666;
-
       --border: #e7dfd1;
-
       --green: #2f2f23;
-
+      --success: #376447;
+      --warning: #8a6d2f;
+      --error: #8d3b3b;
     }
-
 
     html {
       scroll-behavior: smooth;
     }
 
-
     body {
-
       margin: 0;
-
       min-height: 100vh;
-
       font-family: "Inter", sans-serif;
-
       color: var(--text);
-
       background: var(--light);
-
     }
 
 
@@ -88,75 +73,41 @@
        ======================================================== */
 
     .site-header {
-
       background: rgba(255,255,255,.96);
-
       border-bottom: 1px solid var(--border);
-
     }
-
 
     .header-container {
-
-      width: min(
-        1200px,
-        calc(100% - 40px)
-      );
-
+      width: min(1200px, calc(100% - 40px));
       height: 82px;
-
       margin: auto;
-
       display: flex;
-
       align-items: center;
-
       justify-content: space-between;
-
     }
-
 
     .brand {
-
       display: flex;
-
       align-items: center;
-
       text-decoration: none;
-
     }
-
 
     .brand img {
-
       display: block;
-
       height: 50px;
-
       width: auto;
-
     }
-
 
     .voltar {
-
       text-decoration: none;
-
       color: var(--text);
-
       font-size: 14px;
-
       font-weight: 600;
-
       transition: color .2s ease;
-
     }
 
-
     .voltar:hover {
-
       color: var(--gold);
-
     }
 
 
@@ -165,101 +116,67 @@
        ======================================================== */
 
     main {
-
       min-height: calc(100vh - 82px);
-
       display: flex;
-
       align-items: center;
-
       justify-content: center;
-
       padding: 60px 20px;
-
     }
 
-
     .pedido-card {
-
-      width: min(
-        680px,
-        100%
-      );
-
+      width: min(680px, 100%);
       background: var(--white);
-
       border: 1px solid var(--border);
-
       border-radius: 24px;
-
       padding: 56px;
-
       text-align: center;
-
-      box-shadow:
-        0 20px 60px
-        rgba(17,17,17,.08);
-
+      box-shadow: 0 20px 60px rgba(17,17,17,.08);
     }
 
 
     /* ========================================================
-       INDICADOR
+       ÍCONE DE STATUS
        ======================================================== */
 
     .status-icon {
-
-      width: 74px;
-
-      height: 74px;
-
-      margin:
-        0 auto
-        28px;
-
+      width: 76px;
+      height: 76px;
+      margin: 0 auto 28px;
       border-radius: 50%;
-
       display: flex;
-
       align-items: center;
-
       justify-content: center;
-
       background: var(--green);
-
+      color: white;
+      font-size: 34px;
+      font-weight: 700;
     }
 
+    .status-icon.sucesso {
+      background: var(--success);
+    }
+
+    .status-icon.erro {
+      background: var(--error);
+    }
+
+    .status-icon.aguardando {
+      background: var(--warning);
+    }
 
     .spinner {
-
       width: 30px;
-
       height: 30px;
-
       border-radius: 50%;
-
-      border:
-        3px solid
-        rgba(255,255,255,.25);
-
-      border-top-color:
-        var(--gold);
-
-      animation:
-        girar .8s
-        linear
-        infinite;
-
+      border: 3px solid rgba(255,255,255,.25);
+      border-top-color: var(--gold);
+      animation: girar .8s linear infinite;
     }
 
-
     @keyframes girar {
-
       to {
-        transform:
-          rotate(360deg);
+        transform: rotate(360deg);
       }
-
     }
 
 
@@ -268,137 +185,89 @@
        ======================================================== */
 
     .eyebrow {
-
       display: inline-block;
-
       margin-bottom: 14px;
-
       color: var(--gold);
-
       font-size: 12px;
-
       font-weight: 800;
-
       letter-spacing: .14em;
-
       text-transform: uppercase;
-
     }
-
 
     h1 {
-
-      margin:
-        0 0
-        18px;
-
+      margin: 0 0 18px;
       color: var(--black);
-
-      font-size:
-        clamp(
-          30px,
-          5vw,
-          44px
-        );
-
+      font-size: clamp(30px, 5vw, 44px);
       line-height: 1.08;
-
       letter-spacing: -.04em;
-
     }
-
 
     .descricao {
-
       max-width: 520px;
-
-      margin:
-        0 auto
-        28px;
-
+      margin: 0 auto 28px;
       color: var(--muted);
-
       font-size: 16px;
-
       line-height: 1.7;
-
-    }
-
-
-    .aviso {
-
-      margin-top: 30px;
-
-      padding: 20px;
-
-      background: var(--light);
-
-      border-radius: 14px;
-
-      color: var(--muted);
-
-      font-size: 13px;
-
-      line-height: 1.6;
-
     }
 
 
     /* ========================================================
-       PEDIDO
+       INFORMAÇÕES DO PEDIDO
        ======================================================== */
 
     .pedido-info {
-
       display: none;
-
       margin-top: 28px;
-
-      padding-top: 24px;
-
-      border-top:
-        1px solid
-        var(--border);
-
+      padding: 22px;
+      background: var(--light);
+      border-radius: 14px;
+      text-align: left;
     }
-
 
     .pedido-info.visivel {
-
       display: block;
-
     }
 
+    .linha-info {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .linha-info:last-child {
+      border-bottom: 0;
+    }
 
     .pedido-label {
-
       display: block;
-
-      margin-bottom: 7px;
-
+      margin-bottom: 5px;
       color: var(--muted);
-
-      font-size: 12px;
-
-      font-weight: 600;
-
+      font-size: 11px;
+      font-weight: 700;
       text-transform: uppercase;
-
       letter-spacing: .08em;
+    }
 
+    .pedido-valor {
+      display: block;
+      color: var(--black);
+      font-size: 14px;
+      font-weight: 700;
+      word-break: break-word;
     }
 
 
-    .pedido-numero {
+    /* ========================================================
+       AVISO
+       ======================================================== */
 
-      color: var(--black);
-
-      font-size: 14px;
-
-      font-weight: 700;
-
-      word-break: break-word;
-
+    .aviso {
+      margin-top: 28px;
+      padding: 18px 20px;
+      background: var(--light);
+      border-radius: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
     }
 
 
@@ -407,78 +276,46 @@
        ======================================================== */
 
     .acoes {
-
-      margin-top: 32px;
-
+      margin-top: 30px;
       display: flex;
-
       gap: 12px;
-
       justify-content: center;
-
       flex-wrap: wrap;
-
     }
-
 
     .btn {
-
       display: inline-flex;
-
       min-height: 48px;
-
       padding: 0 22px;
-
       align-items: center;
-
       justify-content: center;
-
+      border: 0;
       border-radius: 10px;
-
       text-decoration: none;
-
+      font-family: inherit;
       font-size: 14px;
-
       font-weight: 700;
-
-      transition:
-        transform .2s ease,
-        opacity .2s ease;
-
+      cursor: pointer;
+      transition: transform .2s ease;
     }
-
 
     .btn:hover {
-
-      transform:
-        translateY(-1px);
-
+      transform: translateY(-1px);
     }
-
 
     .btn-primary {
-
-      background:
-        var(--black);
-
-      color:
-        var(--white);
-
+      background: var(--black);
+      color: var(--white);
     }
 
-
     .btn-secondary {
+      border: 1px solid var(--border);
+      color: var(--black);
+      background: var(--white);
+    }
 
-      border:
-        1px solid
-        var(--border);
-
-      color:
-        var(--black);
-
-      background:
-        var(--white);
-
+    .oculto {
+      display: none !important;
     }
 
 
@@ -486,69 +323,36 @@
        RESPONSIVO
        ======================================================== */
 
-    @media (
-      max-width: 700px
-    ) {
+    @media (max-width: 700px) {
 
       .header-container {
-
         height: 74px;
-
       }
-
 
       .brand img {
-
         height: 42px;
-
       }
-
 
       main {
-
-        min-height:
-          calc(
-            100vh - 74px
-          );
-
-        padding:
-          30px 16px;
-
+        min-height: calc(100vh - 74px);
+        padding: 30px 16px;
       }
-
 
       .pedido-card {
-
-        padding:
-          40px 24px;
-
-        border-radius:
-          20px;
-
+        padding: 40px 24px;
+        border-radius: 20px;
       }
-
 
       .descricao {
-
-        font-size:
-          15px;
-
+        font-size: 15px;
       }
-
 
       .acoes {
-
-        flex-direction:
-          column;
-
+        flex-direction: column;
       }
 
-
       .btn {
-
-        width:
-          100%;
-
+        width: 100%;
       }
 
     }
@@ -608,6 +412,7 @@
 
 
       <div
+        id="status-icon"
         class="status-icon"
         aria-hidden="true"
       >
@@ -617,24 +422,27 @@
       </div>
 
 
-      <span class="eyebrow">
-        Pedido recebido
+      <span
+        id="eyebrow"
+        class="eyebrow"
+      >
+        Verificando pedido
       </span>
 
 
-      <h1>
+      <h1 id="titulo">
         Estamos confirmando seu pagamento
       </h1>
 
 
-      <p class="descricao">
+      <p
+        id="descricao"
+        class="descricao"
+      >
 
-        Seu pedido retornou da InfinitePay e está
-        sendo validado com segurança.
-
-        Assim que a confirmação do pagamento for
-        identificada, o acesso ao material adquirido
-        será liberado.
+        Aguarde alguns instantes enquanto
+        confirmamos a transação diretamente
+        com a InfinitePay.
 
       </p>
 
@@ -644,48 +452,97 @@
         class="pedido-info"
       >
 
-        <span class="pedido-label">
-          Identificação do pedido
-        </span>
+        <div class="linha-info">
 
-        <span
-          id="pedido-numero"
-          class="pedido-numero"
-        ></span>
+          <span class="pedido-label">
+            Produto
+          </span>
+
+          <span
+            id="produto"
+            class="pedido-valor"
+          >
+            —
+          </span>
+
+        </div>
+
+
+        <div class="linha-info">
+
+          <span class="pedido-label">
+            Pedido
+          </span>
+
+          <span
+            id="pedido"
+            class="pedido-valor"
+          >
+            —
+          </span>
+
+        </div>
+
+
+        <div
+          id="linha-transacao"
+          class="linha-info"
+        >
+
+          <span class="pedido-label">
+            Transação
+          </span>
+
+          <span
+            id="transacao"
+            class="pedido-valor"
+          >
+            —
+          </span>
+
+        </div>
 
       </div>
 
 
-      <div class="aviso">
+      <div
+        id="aviso"
+        class="aviso"
+      >
 
-        <strong>
-          Importante:
-        </strong>
-
-        esta página não considera o pagamento
-        aprovado apenas pelo retorno do checkout.
-
-        A confirmação será realizada pelo sistema
-        diretamente com a plataforma de pagamento.
+        Não feche esta página enquanto
+        verificamos o pagamento.
 
       </div>
 
 
       <div class="acoes">
 
-        <a
-          href="loja.html"
-          class="btn btn-primary"
+        <button
+          id="verificar-novamente"
+          type="button"
+          class="btn btn-primary oculto"
         >
-          Voltar para a loja
+          Verificar novamente
+        </button>
+
+
+        <a
+          id="comprovante"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-secondary oculto"
+        >
+          Ver comprovante
         </a>
 
 
         <a
-          href="index.html"
+          href="loja.html"
           class="btn btn-secondary"
         >
-          Página inicial
+          Voltar para a loja
         </a>
 
       </div>
@@ -696,82 +553,274 @@
   </main>
 
 
-  <!-- ========================================================
-       SCRIPT
-       ======================================================== -->
-
   <script>
 
     // ========================================================
-    // RECUPERA O ÚLTIMO PEDIDO INICIADO NESTE NAVEGADOR
-    //
-    // IMPORTANTE:
-    // Isto serve somente para exibição e experiência do usuário.
-    // NÃO representa confirmação de pagamento.
+    // ELEMENTOS
     // ========================================================
 
-    function carregarPedidoLocal() {
+    const statusIcon =
+      document.getElementById("status-icon");
 
-      try {
+    const eyebrow =
+      document.getElementById("eyebrow");
 
-        const pedidoSalvo =
-          localStorage.getItem(
-            "profDinizUltimoPedido"
+    const titulo =
+      document.getElementById("titulo");
+
+    const descricao =
+      document.getElementById("descricao");
+
+    const aviso =
+      document.getElementById("aviso");
+
+    const pedidoInfo =
+      document.getElementById("pedido-info");
+
+    const produtoElemento =
+      document.getElementById("produto");
+
+    const pedidoElemento =
+      document.getElementById("pedido");
+
+    const transacaoElemento =
+      document.getElementById("transacao");
+
+    const linhaTransacao =
+      document.getElementById("linha-transacao");
+
+    const botaoVerificar =
+      document.getElementById("verificar-novamente");
+
+    const botaoComprovante =
+      document.getElementById("comprovante");
+
+
+    // ========================================================
+    // DADOS DA URL
+    // ========================================================
+
+    const parametros =
+      new URLSearchParams(
+        window.location.search
+      );
+
+
+    const dadosRetorno = {
+
+      order_nsu:
+        parametros.get("order_nsu"),
+
+      transaction_nsu:
+        parametros.get("transaction_nsu"),
+
+      slug:
+        parametros.get("slug"),
+
+      receipt_url:
+        parametros.get("receipt_url"),
+
+      capture_method:
+        parametros.get("capture_method")
+
+    };
+
+
+    // ========================================================
+    // OBTÉM SKU DO ORDER_NSU
+    // ========================================================
+
+    function obterSku(orderNsu) {
+
+      if (!orderNsu) {
+        return null;
+      }
+
+
+      const resultado =
+        orderNsu.match(
+          /^(LAUDO-\d{2}|COMBO-\d{2})-\d+$/
+        );
+
+
+      return resultado
+        ? resultado[1]
+        : null;
+
+    }
+
+
+    // ========================================================
+    // EXIBE INFORMAÇÕES BÁSICAS
+    // ========================================================
+
+    function mostrarDadosPedido() {
+
+      const sku =
+        obterSku(
+          dadosRetorno.order_nsu
+        );
+
+
+      if (sku) {
+
+        produtoElemento.textContent =
+          sku;
+
+      }
+
+
+      if (dadosRetorno.order_nsu) {
+
+        pedidoElemento.textContent =
+          dadosRetorno.order_nsu;
+
+      }
+
+
+      if (dadosRetorno.transaction_nsu) {
+
+        transacaoElemento.textContent =
+          dadosRetorno.transaction_nsu;
+
+      } else {
+
+        linhaTransacao.style.display =
+          "none";
+
+      }
+
+
+      if (
+        sku ||
+        dadosRetorno.order_nsu
+      ) {
+
+        pedidoInfo.classList.add(
+          "visivel"
+        );
+
+      }
+
+
+      if (dadosRetorno.receipt_url) {
+
+        try {
+
+          const urlComprovante =
+            new URL(
+              dadosRetorno.receipt_url
+            );
+
+
+          if (
+            urlComprovante.protocol === "https:"
+          ) {
+
+            botaoComprovante.href =
+              urlComprovante.href;
+
+          }
+
+        } catch {
+
+          console.warn(
+            "URL de comprovante inválida."
           );
 
-
-        if (!pedidoSalvo) {
-          return;
         }
 
+      }
 
-        const pedido =
-          JSON.parse(
-            pedidoSalvo
-          );
+    }
 
 
-        if (
-          !pedido ||
-          !pedido.order_nsu
-        ) {
-          return;
-        }
+    // ========================================================
+    // STATUS VISUAL
+    // ========================================================
+
+    function statusCarregando() {
+
+      statusIcon.className =
+        "status-icon";
+
+      statusIcon.innerHTML =
+        '<div class="spinner"></div>';
 
 
-        const info =
-          document.getElementById(
-            "pedido-info"
-          );
+      eyebrow.textContent =
+        "Verificando pedido";
 
 
-        const numero =
-          document.getElementById(
-            "pedido-numero"
-          );
+      titulo.textContent =
+        "Estamos confirmando seu pagamento";
 
 
-        if (
-          info &&
-          numero
-        ) {
-
-          numero.textContent =
-            pedido.order_nsu;
+      descricao.textContent =
+        "Aguarde alguns instantes enquanto confirmamos a transação diretamente com a InfinitePay.";
 
 
-          info.classList.add(
-            "visivel"
-          );
-
-        }
+      aviso.textContent =
+        "Não feche esta página enquanto verificamos o pagamento.";
 
 
-      } catch (erro) {
+      botaoVerificar.classList.add(
+        "oculto"
+      );
 
-        console.warn(
-          "Não foi possível recuperar o pedido local:",
-          erro
+    }
+
+
+    function statusAprovado(dados) {
+
+      statusIcon.className =
+        "status-icon sucesso";
+
+      statusIcon.textContent =
+        "✓";
+
+
+      eyebrow.textContent =
+        "Pagamento confirmado";
+
+
+      titulo.textContent =
+        "Pagamento aprovado";
+
+
+      descricao.textContent =
+        "Seu pagamento foi confirmado com segurança. Seu pedido está aprovado.";
+
+
+      aviso.textContent =
+        "A confirmação financeira foi concluída. A entrega automática do material será conectada na próxima etapa do sistema.";
+
+
+      if (dados.sku) {
+
+        produtoElemento.textContent =
+          dados.sku;
+
+      }
+
+
+      pedidoInfo.classList.add(
+        "visivel"
+      );
+
+
+      botaoVerificar.classList.add(
+        "oculto"
+      );
+
+
+      if (
+        dadosRetorno.receipt_url &&
+        botaoComprovante.href !== "#"
+      ) {
+
+        botaoComprovante.classList.remove(
+          "oculto"
         );
 
       }
@@ -779,10 +828,188 @@
     }
 
 
-    document.addEventListener(
-      "DOMContentLoaded",
-      carregarPedidoLocal
+    function statusAguardando() {
+
+      statusIcon.className =
+        "status-icon aguardando";
+
+      statusIcon.textContent =
+        "…";
+
+
+      eyebrow.textContent =
+        "Pagamento em processamento";
+
+
+      titulo.textContent =
+        "Ainda estamos aguardando a confirmação";
+
+
+      descricao.textContent =
+        "A InfinitePay ainda não confirmou este pagamento. Se você acabou de pagar, aguarde alguns instantes e verifique novamente.";
+
+
+      aviso.textContent =
+        "Nenhum material será liberado enquanto o pagamento não estiver confirmado.";
+
+
+      botaoVerificar.classList.remove(
+        "oculto"
+      );
+
+    }
+
+
+    function statusErro(mensagem) {
+
+      statusIcon.className =
+        "status-icon erro";
+
+      statusIcon.textContent =
+        "!";
+
+
+      eyebrow.textContent =
+        "Não foi possível confirmar";
+
+
+      titulo.textContent =
+        "Precisamos verificar seu pedido";
+
+
+      descricao.textContent =
+        mensagem ||
+        "Não foi possível confirmar o pagamento neste momento.";
+
+
+      aviso.textContent =
+        "Se você realizou o pagamento, seu pedido não será perdido. Tente verificar novamente em alguns instantes.";
+
+
+      botaoVerificar.classList.remove(
+        "oculto"
+      );
+
+    }
+
+
+    // ========================================================
+    // CONSULTA NOSSO SERVIDOR
+    // ========================================================
+
+    async function verificarPagamento() {
+
+      if (
+        !dadosRetorno.order_nsu ||
+        !dadosRetorno.transaction_nsu ||
+        !dadosRetorno.slug
+      ) {
+
+        statusErro(
+          "Esta página não recebeu todos os dados necessários da transação."
+        );
+
+        return;
+
+      }
+
+
+      statusCarregando();
+
+
+      try {
+
+        const resposta =
+          await fetch(
+            "/api/verificar-pagamento",
+            {
+
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+
+                order_nsu:
+                  dadosRetorno.order_nsu,
+
+                transaction_nsu:
+                  dadosRetorno.transaction_nsu,
+
+                slug:
+                  dadosRetorno.slug
+
+              })
+
+            }
+          );
+
+
+        const dados =
+          await resposta.json();
+
+
+        if (!resposta.ok) {
+
+          throw new Error(
+            dados.erro ||
+            "Não foi possível confirmar o pagamento."
+          );
+
+        }
+
+
+        if (dados.pago === true) {
+
+          statusAprovado(
+            dados
+          );
+
+          return;
+
+        }
+
+
+        statusAguardando();
+
+
+      } catch (erro) {
+
+        console.error(
+          "Erro ao verificar pagamento:",
+          erro
+        );
+
+
+        statusErro(
+          erro.message
+        );
+
+      }
+
+    }
+
+
+    // ========================================================
+    // BOTÃO VERIFICAR NOVAMENTE
+    // ========================================================
+
+    botaoVerificar.addEventListener(
+      "click",
+      verificarPagamento
     );
+
+
+    // ========================================================
+    // INICIALIZAÇÃO
+    // ========================================================
+
+    mostrarDadosPedido();
+
+    verificarPagamento();
 
   </script>
 
