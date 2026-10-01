@@ -16,7 +16,7 @@
 
   <meta
     name="description"
-    content="Confirmação de pagamento da loja Professor Diniz."
+    content="Confirmação de pagamento e entrega dos materiais da loja Professor Diniz."
   >
 
   <link
@@ -124,7 +124,7 @@
     }
 
     .pedido-card {
-      width: min(680px, 100%);
+      width: min(760px, 100%);
       background: var(--white);
       border: 1px solid var(--border);
       border-radius: 24px;
@@ -203,7 +203,7 @@
     }
 
     .descricao {
-      max-width: 520px;
+      max-width: 560px;
       margin: 0 auto 28px;
       color: var(--muted);
       font-size: 16px;
@@ -253,6 +253,130 @@
       font-size: 14px;
       font-weight: 700;
       word-break: break-word;
+    }
+
+
+    /* ========================================================
+       ARQUIVOS
+       ======================================================== */
+
+    .arquivos-area {
+      display: none;
+      margin-top: 32px;
+      text-align: left;
+    }
+
+    .arquivos-area.visivel {
+      display: block;
+    }
+
+    .arquivos-cabecalho {
+      margin-bottom: 18px;
+    }
+
+    .arquivos-titulo {
+      margin: 0 0 8px;
+      color: var(--black);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .arquivos-descricao {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .arquivos-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .arquivo-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 16px 18px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--white);
+    }
+
+    .arquivo-info {
+      min-width: 0;
+    }
+
+    .arquivo-codigo {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .arquivo-nome {
+      display: block;
+      color: var(--black);
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .btn-download {
+      flex: 0 0 auto;
+      display: inline-flex;
+      min-height: 42px;
+      padding: 0 18px;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 9px;
+      background: var(--green);
+      color: var(--white);
+      text-decoration: none;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition:
+        transform .2s ease,
+        opacity .2s ease;
+    }
+
+    .btn-download:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-download:focus-visible {
+      outline: 3px solid rgba(184,154,90,.35);
+      outline-offset: 2px;
+    }
+
+    .arquivos-carregando {
+      padding: 20px;
+      border-radius: 12px;
+      background: var(--light);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .arquivos-erro {
+      padding: 18px 20px;
+      border: 1px solid rgba(141,59,59,.18);
+      border-radius: 12px;
+      background: rgba(141,59,59,.05);
+      color: var(--error);
+      font-size: 13px;
+      line-height: 1.6;
+      text-align: center;
     }
 
 
@@ -347,6 +471,17 @@
         font-size: 15px;
       }
 
+      .arquivo-item {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .btn-download {
+        width: 100%;
+        min-height: 46px;
+      }
+
       .acoes {
         flex-direction: column;
       }
@@ -439,13 +574,11 @@
         id="descricao"
         class="descricao"
       >
-
-        Aguarde alguns instantes enquanto
-        confirmamos a transação diretamente
-        com a InfinitePay.
-
+        Aguarde alguns instantes enquanto confirmamos a transação diretamente com a InfinitePay.
       </p>
 
+
+      <!-- INFORMAÇÕES DO PEDIDO -->
 
       <div
         id="pedido-info"
@@ -505,16 +638,52 @@
       </div>
 
 
+      <!-- ARQUIVOS ADQUIRIDOS -->
+
+      <section
+        id="arquivos-area"
+        class="arquivos-area"
+        aria-labelledby="arquivos-titulo"
+      >
+
+        <div class="arquivos-cabecalho">
+
+          <h2
+            id="arquivos-titulo"
+            class="arquivos-titulo"
+          >
+            Seus arquivos
+          </h2>
+
+          <p
+            id="arquivos-descricao"
+            class="arquivos-descricao"
+          >
+            Selecione abaixo o modelo que deseja baixar.
+          </p>
+
+        </div>
+
+
+        <div
+          id="arquivos-lista"
+          class="arquivos-lista"
+        ></div>
+
+      </section>
+
+
+      <!-- AVISO -->
+
       <div
         id="aviso"
         class="aviso"
       >
-
-        Não feche esta página enquanto
-        verificamos o pagamento.
-
+        Não feche esta página enquanto verificamos o pagamento.
       </div>
 
+
+      <!-- AÇÕES -->
 
       <div class="acoes">
 
@@ -594,6 +763,15 @@
 
     const botaoComprovante =
       document.getElementById("comprovante");
+
+    const arquivosArea =
+      document.getElementById("arquivos-area");
+
+    const arquivosLista =
+      document.getElementById("arquivos-lista");
+
+    const arquivosDescricao =
+      document.getElementById("arquivos-descricao");
 
 
     // ========================================================
@@ -736,10 +914,28 @@
 
 
     // ========================================================
-    // STATUS VISUAL
+    // ESCONDE ARQUIVOS
+    // ========================================================
+
+    function esconderArquivos() {
+
+      arquivosArea.classList.remove(
+        "visivel"
+      );
+
+      arquivosLista.innerHTML = "";
+
+    }
+
+
+    // ========================================================
+    // STATUS VISUAL — CARREGANDO
     // ========================================================
 
     function statusCarregando() {
+
+      esconderArquivos();
+
 
       statusIcon.className =
         "status-icon";
@@ -771,6 +967,10 @@
     }
 
 
+    // ========================================================
+    // STATUS VISUAL — APROVADO
+    // ========================================================
+
     function statusAprovado(dados) {
 
       statusIcon.className =
@@ -789,11 +989,11 @@
 
 
       descricao.textContent =
-        "Seu pagamento foi confirmado com segurança. Seu pedido está aprovado.";
+        "Seu pagamento foi confirmado com segurança. Estamos preparando os arquivos da sua compra.";
 
 
       aviso.textContent =
-        "A confirmação financeira foi concluída. A entrega automática do material será conectada na próxima etapa do sistema.";
+        "Pagamento confirmado. Os materiais disponíveis para esta compra aparecem abaixo.";
 
 
       if (dados.sku) {
@@ -828,7 +1028,14 @@
     }
 
 
+    // ========================================================
+    // STATUS VISUAL — AGUARDANDO
+    // ========================================================
+
     function statusAguardando() {
+
+      esconderArquivos();
+
 
       statusIcon.className =
         "status-icon aguardando";
@@ -860,7 +1067,14 @@
     }
 
 
+    // ========================================================
+    // STATUS VISUAL — ERRO
+    // ========================================================
+
     function statusErro(mensagem) {
+
+      esconderArquivos();
+
 
       statusIcon.className =
         "status-icon erro";
@@ -894,7 +1108,329 @@
 
 
     // ========================================================
-    // CONSULTA NOSSO SERVIDOR
+    // ESTADO DE CARREGAMENTO DOS ARQUIVOS
+    // ========================================================
+
+    function mostrarCarregamentoArquivos() {
+
+      arquivosArea.classList.add(
+        "visivel"
+      );
+
+
+      arquivosDescricao.textContent =
+        "Estamos preparando os materiais adquiridos.";
+
+
+      arquivosLista.innerHTML = "";
+
+
+      const carregando =
+        document.createElement("div");
+
+
+      carregando.className =
+        "arquivos-carregando";
+
+
+      carregando.textContent =
+        "Preparando seus arquivos...";
+
+
+      arquivosLista.appendChild(
+        carregando
+      );
+
+    }
+
+
+    // ========================================================
+    // ERRO AO PREPARAR ARQUIVOS
+    // ========================================================
+
+    function mostrarErroArquivos(mensagem) {
+
+      arquivosArea.classList.add(
+        "visivel"
+      );
+
+
+      arquivosDescricao.textContent =
+        "O pagamento está confirmado, mas tivemos dificuldade para preparar os arquivos.";
+
+
+      arquivosLista.innerHTML = "";
+
+
+      const erro =
+        document.createElement("div");
+
+
+      erro.className =
+        "arquivos-erro";
+
+
+      erro.textContent =
+        mensagem ||
+        "Não foi possível preparar os downloads neste momento. Tente novamente em alguns instantes.";
+
+
+      arquivosLista.appendChild(
+        erro
+      );
+
+
+      aviso.textContent =
+        "Seu pagamento permanece confirmado. Nenhum dado da compra foi perdido.";
+
+    }
+
+
+    // ========================================================
+    // RENDERIZA OS ARQUIVOS
+    // ========================================================
+
+    function renderizarArquivos(dados) {
+
+      const arquivos =
+        Array.isArray(dados.arquivos)
+          ? dados.arquivos
+          : [];
+
+
+      if (arquivos.length === 0) {
+
+        mostrarErroArquivos(
+          "Nenhum arquivo foi localizado para esta compra."
+        );
+
+        return;
+
+      }
+
+
+      arquivosArea.classList.add(
+        "visivel"
+      );
+
+
+      arquivosLista.innerHTML = "";
+
+
+      if (arquivos.length === 1) {
+
+        arquivosDescricao.textContent =
+          "Seu modelo está disponível para download.";
+
+      } else {
+
+        arquivosDescricao.textContent =
+          `Sua compra contém ${arquivos.length} modelos. Você pode baixar cada arquivo individualmente.`;
+
+      }
+
+
+      arquivos.forEach(
+        arquivo => {
+
+          const item =
+            document.createElement("div");
+
+
+          item.className =
+            "arquivo-item";
+
+
+          const info =
+            document.createElement("div");
+
+
+          info.className =
+            "arquivo-info";
+
+
+          const codigo =
+            document.createElement("span");
+
+
+          codigo.className =
+            "arquivo-codigo";
+
+
+          codigo.textContent =
+            `Modelo ${arquivo.codigo}`;
+
+
+          const nome =
+            document.createElement("span");
+
+
+          nome.className =
+            "arquivo-nome";
+
+
+          nome.textContent =
+            arquivo.nome;
+
+
+          info.appendChild(
+            codigo
+          );
+
+
+          info.appendChild(
+            nome
+          );
+
+
+          const botao =
+            document.createElement("a");
+
+
+          botao.className =
+            "btn-download";
+
+
+          botao.href =
+            arquivo.download_url;
+
+
+          botao.textContent =
+            "Baixar arquivo";
+
+
+          botao.setAttribute(
+            "aria-label",
+            `Baixar ${arquivo.nome}`
+          );
+
+
+          item.appendChild(
+            info
+          );
+
+
+          item.appendChild(
+            botao
+          );
+
+
+          arquivosLista.appendChild(
+            item
+          );
+
+        }
+      );
+
+
+      aviso.textContent =
+        "Se você adquiriu um combo, os modelos podem ser baixados individualmente conforme sua necessidade.";
+
+    }
+
+
+    // ========================================================
+    // CONSULTA A API DE ENTREGA
+    // ========================================================
+
+    async function carregarArquivos() {
+
+      mostrarCarregamentoArquivos();
+
+
+      try {
+
+        const resposta =
+          await fetch(
+            "/api/entrega",
+            {
+
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body:
+                JSON.stringify({
+
+                  order_nsu:
+                    dadosRetorno.order_nsu,
+
+                  transaction_nsu:
+                    dadosRetorno.transaction_nsu,
+
+                  slug:
+                    dadosRetorno.slug
+
+                })
+
+            }
+          );
+
+
+        let dados = {};
+
+
+        try {
+
+          dados =
+            await resposta.json();
+
+        } catch {
+
+          dados = {};
+
+        }
+
+
+        if (!resposta.ok) {
+
+          throw new Error(
+            dados.erro ||
+            "Não foi possível preparar os arquivos."
+          );
+
+        }
+
+
+        if (
+          dados.success !== true ||
+          dados.pago !== true
+        ) {
+
+          throw new Error(
+            "A entrega ainda não foi autorizada."
+          );
+
+        }
+
+
+        renderizarArquivos(
+          dados
+        );
+
+
+      } catch (erro) {
+
+        console.error(
+          "Erro ao carregar arquivos:",
+          erro
+        );
+
+
+        mostrarErroArquivos(
+          erro.message
+        );
+
+      }
+
+    }
+
+
+    // ========================================================
+    // CONSULTA NOSSO SERVIDOR PARA CONFIRMAR PAGAMENTO
     // ========================================================
 
     async function verificarPagamento() {
@@ -931,25 +1467,37 @@
                   "application/json"
               },
 
-              body: JSON.stringify({
+              body:
+                JSON.stringify({
 
-                order_nsu:
-                  dadosRetorno.order_nsu,
+                  order_nsu:
+                    dadosRetorno.order_nsu,
 
-                transaction_nsu:
-                  dadosRetorno.transaction_nsu,
+                  transaction_nsu:
+                    dadosRetorno.transaction_nsu,
 
-                slug:
-                  dadosRetorno.slug
+                  slug:
+                    dadosRetorno.slug
 
-              })
+                })
 
             }
           );
 
 
-        const dados =
-          await resposta.json();
+        let dados = {};
+
+
+        try {
+
+          dados =
+            await resposta.json();
+
+        } catch {
+
+          dados = {};
+
+        }
 
 
         if (!resposta.ok) {
@@ -967,6 +1515,10 @@
           statusAprovado(
             dados
           );
+
+
+          await carregarArquivos();
+
 
           return;
 
